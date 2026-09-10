@@ -1,0 +1,29 @@
+services:
+  cap:
+    build: .
+    restart: unless-stopped
+    environment:
+      APP_ORIGIN: https://${CAP_DOMAIN:?Renseigner CAP_DOMAIN dans .env}
+      DATABASE_PATH: /app/data/cap.sqlite
+    volumes:
+      - cap_data:/app/data
+    expose:
+      - "3000"
+  web:
+    image: caddy:2
+    restart: unless-stopped
+    environment:
+      CAP_DOMAIN: ${CAP_DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - cap
+volumes:
+  cap_data:
+  caddy_data:
+  caddy_config:

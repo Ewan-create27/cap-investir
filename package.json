@@ -1,0 +1,22 @@
+{
+  "name": "cap-investir",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "test": "node --test tests/*.test.mjs",
+    "start": "node --env-file-if-exists=.env standalone/server.js",
+    "backup": "node --env-file-if-exists=.env standalone/backup.js"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "drizzle-kit": "0.31.10",
+    "drizzle-orm": "0.45.2"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "pg": "^8.23.0"
+  }
+}
