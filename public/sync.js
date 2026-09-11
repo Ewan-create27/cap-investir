@@ -16,6 +16,7 @@ function normalizedState(data){
  if(!s.goals.some(g=>g.id===s.activeGoalId))s.activeGoalId=s.goals[0]?.id||null;
  s.planDone=Array.isArray(data.planDone)?data.planDone:(data.done||[]).map(id=>legacyPlanMap[id]).filter(Boolean);
  s.quizPassed=Array.isArray(data.quizPassed)?data.quizPassed:[];
+ s.returns=normalizeReturns(s.returns);
  return s;
 }
 function legacyData(){try{const data=JSON.parse(localStorage.getItem('cap-v1'));return data&&typeof data==='object'?normalizedState(data):null}catch{return null}}
