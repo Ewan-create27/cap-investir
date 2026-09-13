@@ -135,7 +135,7 @@ main>.source a{color:var(--tone-c9d8ce)}
 /* Percentages sit inside a generous ring; category details stay in the centre. */
 .budget-interactive .budget-donut.budget-donut-labelled{width:min(100%,440px);aspect-ratio:1;margin:10px auto 24px;container-type:inline-size}
 .budget-donut-labelled svg{display:block;width:100%;height:auto;overflow:visible}
-.budget-donut-labelled .budget-donut-center,.budget-donut-labelled .budget-hover-info{width:49%;gap:4px}
+.budget-donut-labelled .budget-donut-center,.budget-donut-labelled .budget-hover-info{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:49%;gap:4px;text-align:center}
 .budget-donut-labelled .budget-hover-value{font-size:clamp(14px,5cqi,22px);line-height:1.2}
 .budget-donut-labelled .budget-hover-label{font-size:clamp(11px,3.5cqi,15px);line-height:1.25}
 .budget-donut-labelled .budget-hover-count,.budget-donut-labelled .budget-hover-percent{font-size:clamp(10px,3cqi,12px);line-height:1.3}
