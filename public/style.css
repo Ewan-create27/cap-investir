@@ -131,3 +131,17 @@ main>.source a{color:var(--tone-c9d8ce)}
 #cap-bubbles .cb-home-title h2{color:white}
 
 .dashboard-overview>.cap-returns-home{grid-column:1 / -1}
+
+/* Persistent budget annotations, isolated on hover/focus. */
+.budget-interactive .budget-donut.budget-donut-labelled{width:min(100%,430px)}
+.budget-donut-labelled .budget-donut-center,.budget-donut-labelled .budget-hover-info{width:36%}
+.budget-donut-labelled .budget-hover-value{font-size:15px}
+.budget-donut-labelled .budget-hover-label{font-size:12px}
+.budget-permanent-label{cursor:pointer;transition:opacity .15s}
+.budget-permanent-label text{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:650;fill:var(--ink);paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
+.budget-permanent-label .budget-permanent-percent{font-size:15px;font-weight:450;fill:#526158}
+.budget-is-exploring .budget-permanent-label:not(.budget-part-active){opacity:0;pointer-events:none}
+.budget-is-exploring .budget-chart-legend [data-budget-part]:not(.budget-part-active){visibility:hidden}
+.goal-simulator{margin-top:40px;padding-top:28px;border-top:1px solid #ffffff30}
+.goal-simulator>.heading h2{color:white;font-size:26px;margin:0 0 10px}
+.goal-simulator .sim-grid{align-items:start}
