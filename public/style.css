@@ -146,3 +146,96 @@ main>.source a{color:var(--tone-c9d8ce)}
 .goal-simulator{margin-top:40px;padding-top:28px;border-top:1px solid #ffffff30}
 .goal-simulator>.heading h2{color:white;font-size:26px;margin:0 0 10px}
 .goal-simulator .sim-grid{align-items:start}
+
+/* Compact phone layout. Desktop dimensions remain unchanged. */
+@media(max-width:650px){
+ main{padding:18px 12px 24px}
+ .heading{gap:10px;margin-bottom:16px;flex-wrap:wrap}
+ h1{font-size:23px;letter-spacing:-.7px;margin-bottom:5px}
+ p.subtitle{font-size:12px;line-height:1.5}
+ .card{padding:15px;border-radius:12px}
+ .cardtop{gap:10px;margin-bottom:12px}
+ .dashboard-grid,.objectives-layout,.sim-grid,.viewgrid,.budget-layout{gap:14px}
+ .metric-row{gap:12px;margin:12px 0 6px;flex-wrap:wrap}
+ .metric-row b{font-size:12px;margin-top:4px}
+ .metric-row small{font-size:10px}
+ .dashboard-goal-detail>.cardtop h2,.goal-detail .goal-detail-title{font-size:20px!important}
+ .goal-detail .amount,.goal-amount{font-size:22px}
+ .goal-amount-target{font-size:17px}
+ .goal-detail .chart{margin-top:12px}
+ .goal-progress-text{margin-top:12px;font-size:11px}
+ .dashboard-goal-list,.goal-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:none;overflow:visible}
+ .dashboard-goal-list .goal-item,.goal-list .goal-item{padding:10px 8px;gap:6px;min-width:0;align-items:flex-start}
+ .dashboard-goal-list .goal-item .asset-icon,.goal-list .goal-item .asset-icon{display:none}
+ .goal-item-content{min-width:0}
+ .goal-item-content b{font-size:12px;overflow-wrap:anywhere}
+ .goal-item-content>span{font-size:12px}
+ .dashboard-goal-list .goal-item-content>small,.goal-item-content>small{font-size:10px;line-height:1.35}
+ .goal-item .goal-progress{margin-top:6px;height:6px}
+ .dashboard-create-goal{margin-top:10px}
+ .create-goal{font-size:12px;padding:10px 12px;min-height:40px}
+ .goal-selector{margin-bottom:10px}
+ .savings-plan{margin-top:16px}
+ .savings-plan-row{padding:9px 0;gap:8px}
+ .goal-simulator{margin-top:22px;padding-top:18px}
+ #cap-bubbles{border-radius:12px}
+ #cap-bubbles .cb-panel{padding:14px 10px;margin-bottom:12px;border-radius:12px}
+ #cap-bubbles .cb-panelhead{gap:8px;margin-bottom:12px}
+ #cap-bubbles h2{font-size:16px}
+ #cap-bubbles .cb-btn{font-size:11px;padding:9px 10px;min-height:36px}
+ #cap-bubbles .cb-hero{padding:8px 8px 16px}
+ #cap-bubbles .cb-eyebrow{font-size:10px;letter-spacing:.7px}
+ #cap-bubbles .cb-big{font-size:32px;margin:7px 0;letter-spacing:-1px}
+ #cap-bubbles .cb-annual{font-size:11px;gap:5px 12px}
+ #cap-bubbles .cb-muted{font-size:10px}
+ #cap-bubbles .cb-map{gap:18px;padding:4px 0 6px}
+ #cap-bubbles .cb-global{width:154px;height:154px;padding:12px;box-shadow:0 0 0 5px #e5ede8}
+ #cap-bubbles .cb-global strong{font-size:20px;letter-spacing:-.6px;margin:6px 0}
+ #cap-bubbles .cb-global span,#cap-bubbles .cb-global small{font-size:10px}
+ #cap-bubbles .cb-global span:last-child{margin-top:5px!important}
+ #cap-bubbles .cb-global:after{bottom:-16px;height:11px}
+ #cap-bubbles .cb-satellites{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:330px;justify-items:center}
+ #cap-bubbles .cb-bubble{width:100%;max-width:150px;min-height:132px;aspect-ratio:1;padding:14px 9px;gap:2px}
+ #cap-bubbles .cb-bubble b{font-size:12px;margin-bottom:2px}
+ #cap-bubbles .cb-bubble strong{font-size:13px;letter-spacing:-.3px}
+ #cap-bubbles .cb-bubble span{font-size:9px}
+ #cap-bubbles .cb-bubble em{font-size:10px;margin-top:2px}
+ #cap-bubbles .cb-bubble>span:last-child{margin-top:2px}
+ #cap-bubbles .cb-details{font-size:11px;margin-top:10px;min-height:0;line-height:1.4}
+ #cap-bubbles .cb-childrow{gap:8px;margin-top:12px;padding-top:12px}
+ #cap-bubbles .cb-child{width:125px;min-height:125px;padding:14px 9px;gap:5px}
+ #cap-bubbles .cb-child b,#cap-bubbles .cb-child strong{font-size:12px}
+ #cap-bubbles .cb-child span{font-size:10px}
+ #cap-bubbles th,#cap-bubbles td{padding:10px 8px}
+ #cap-bubbles input,#cap-bubbles select{font-size:16px}
+ .dashboard-budget>.cardtop h2{font-size:17px}
+ .dashboard-budget>.cardtop p{font-size:11px;margin-top:4px}
+ .dashboard-budget-layout{gap:14px}
+ .dashboard-budget-chart{padding:10px 0 0}
+ .dashboard-budget table{font-size:12px}
+ .dashboard-budget tbody th,.dashboard-budget tbody td{padding:9px 0}
+ .budget-summary-status{font-size:11px;line-height:1.4;padding:9px 10px;margin-top:10px}
+ .budget-interactive .budget-donut.budget-donut-labelled{width:min(100%,250px);margin:4px auto 12px}
+ .budget-donut-center b{font-size:16px}
+ .budget-donut-center span{font-size:10px}
+ .dashboard-budget .budget-chart-note,.budget-chart-note{font-size:10px;line-height:1.4;margin:10px auto 0}
+ .budget-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:14px}
+ .budget-metrics .card{padding:12px}
+ .budget-metrics .card>span{font-size:11px;margin-bottom:6px}
+ .budget-metrics strong{font-size:19px}
+ .budget-entry{gap:8px;padding-top:11px;padding-bottom:11px;flex-wrap:wrap}
+ .budget-entry-name b{font-size:12px}
+ .budget-entry>strong{font-size:13px}
+ .budget-chart-legend{gap:10px}
+ .budget-chart-legend>div{font-size:12px}
+ .budget-chart-legend b{font-size:14px}
+ .budget-insights{margin-top:20px}
+ .budget-tip{padding:14px;gap:10px}
+ .budget-tip p,.viewgrid p,.roadstep p{font-size:12px;line-height:1.5}
+ .viewgrid h3{font-size:17px;margin:10px 0 7px}
+ .roadstep{padding:13px 0;gap:10px}
+ .filters{gap:6px;margin-bottom:14px}
+ .filter{font-size:12px;padding:9px 12px}
+ .formgrid{gap:14px}
+ .field input,.field select{font-size:16px}
+}
