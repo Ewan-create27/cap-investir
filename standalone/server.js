@@ -20,7 +20,7 @@ export async function createCap({dbPath,origin,databaseUrl,database}){
   if(path.startsWith('/api/'))return api(req,{DB},await auth.identity(req));
   if(!['GET','HEAD'].includes(req.method))return new Response('Méthode non autorisée',{status:405});
   const file=path==='/'?'/index.html':path,data=assets.get(file);
-  return data?new Response(req.method==='HEAD'?null:data,{headers:{'Content-Type':file.endsWith('.js')?'text/javascript; charset=utf-8':file.endsWith('.css')?'text/css; charset=utf-8':'text/html; charset=utf-8'}}):new Response('Page introuvable',{status:404});
+  return data?new Response(req.method==='HEAD'?null:data,{headers:{'Content-Type':file.endsWith('.js')?'text/javascript; charset=utf-8':file.endsWith('.css')?'text/css; charset=utf-8':file.endsWith('.webmanifest')?'application/manifest+json':file.endsWith('.png')?'image/png':file.endsWith('.svg')?'image/svg+xml':'text/html; charset=utf-8'}}):new Response('Page introuvable',{status:404});
  }
  const server=createServer(async(req,res)=>{
   try{

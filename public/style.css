@@ -289,3 +289,11 @@ main>.source a{color:var(--tone-c9d8ce)}
  .filters~.viewgrid .score{font-size:15px;min-width:0}
  .filters~.notice{font-size:11px;line-height:1.45;padding:10px;margin-bottom:12px!important}
 }
+
+.cap-install-card{display:flex;align-items:flex-start;gap:20px;margin-top:24px}
+.cap-install-card>img{border-radius:16px;flex-shrink:0}
+.cap-install-card h2{font:700 20px 'Manrope';margin:0 0 10px}
+.cap-install-card p{font-size:14px;line-height:1.6;color:var(--muted)}
+.cap-install-card .card-note{font-size:12px;margin-top:14px}
+.cap-install-card button:disabled{opacity:.65;cursor:default}
+@media(max-width:650px){.cap-install-card{gap:12px;margin-top:16px}.cap-install-card>img{width:44px;height:44px;border-radius:11px}.cap-install-card h2{font-size:16px}.cap-install-card p{font-size:12px}.cap-install-card .btn{font-size:12px;padding:12px}}

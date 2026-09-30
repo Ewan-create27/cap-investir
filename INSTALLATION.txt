@@ -1,0 +1,16 @@
+CAP — Installation de l’application
+
+1. Décompresse cette archive.
+2. Dans GitHub, ouvre le dossier public puis Add file > Upload files. Ajoute TOUS les fichiers du dossier public de cette archive. Valide Commit changes.
+3. Ouvre le dossier standalone sur GitHub et remplace server.js par celui de cette archive. Valide Commit changes.
+4. Attends que le dernier déploiement Render soit terminé (ou Manual Deploy > Deploy latest commit si le déploiement automatique est désactivé).
+5. Recharge le site puis ouvre Profil et descends jusqu’à Télécharger l’application CAP.
+
+Sur Android/Chrome : accepte l’installation proposée. Si nécessaire, utilise le menu du navigateur > Installer l’application / Ajouter à l’écran d’accueil.
+Sur iPhone : ouvre le site dans Safari > Partager > Sur l’écran d’accueil > Ajouter.
+
+Aucune modification de Neon ni de tes variables Render. Aucun changement de compte ou de données. Une connexion avec ton compte habituel peut être nécessaire au premier lancement selon le téléphone.
+L’application utilise le même site HTTPS et le même serveur. Les modifications en ligne continuent à se synchroniser. Les mises à jour du site sont récupérées au prochain lancement/rechargement. Une page déjà ouverte peut nécessiter une fermeture puis une réouverture.
+Internet est nécessaire : aucune sauvegarde hors connexion n’est ajoutée. Le mode visiteur reste temporaire.
+
+Tests automatisés réussis : ressources installables, types MIME, demande et annulation d’installation, instructions iPhone, absence de cache des API, isolation et persistance des comptes. Installation physique à vérifier après déploiement.

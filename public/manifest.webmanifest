@@ -1,1 +1,10 @@
-{"id":"/","name":"Pari à Long Terme","short_name":"On parie ?","description":"Les paris et les promesses de la bande.","lang":"fr","start_url":"/","scope":"/","display":"standalone","theme_color":"#ff7400","background_color":"#fffaf4","icons":[{"src":"/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},{"src":"/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}]}
+{
+ "id":"/", "name":"CAP", "short_name":"CAP", "lang":"fr",
+ "description":"Tes objectifs, ton patrimoine et ton budget, un pas à la fois.",
+ "start_url":"/", "scope":"/", "display":"standalone",
+ "background_color":"#000000", "theme_color":"#397de8",
+ "icons":[
+  {"src":"/cap-icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+  {"src":"/cap-icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+ ]
+}
