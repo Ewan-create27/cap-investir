@@ -297,3 +297,11 @@ main>.source a{color:var(--tone-c9d8ce)}
 .cap-install-card .card-note{font-size:12px;margin-top:14px}
 .cap-install-card button:disabled{opacity:.65;cursor:default}
 @media(max-width:650px){.cap-install-card{gap:12px;margin-top:16px}.cap-install-card>img{width:44px;height:44px;border-radius:11px}.cap-install-card h2{font-size:16px}.cap-install-card p{font-size:12px}.cap-install-card .btn{font-size:12px;padding:12px}}
+
+/* CAP identity, with the same icon on the home screen and in the interface. */
+.brand{letter-spacing:-1px;gap:10px;font-size:34px}
+.cap-brand-icon{display:block;border-radius:11px;flex-shrink:0}
+.cap-header-brand{display:none;text-decoration:none;align-items:center;gap:8px;font:800 20px 'Manrope',sans-serif;letter-spacing:-.6px;color:var(--ink);flex-shrink:0}
+.cap-header-brand img{display:block;border-radius:8px}
+@media(max-width:820px){.brand .cap-brand-name{display:none}.cap-header-brand{display:flex}#breadcrumb{display:none}}
+@media(max-width:380px){.cap-header-brand{gap:5px;font-size:17px}.cap-header-brand img{width:28px;height:28px}.header-right{gap:8px}}
