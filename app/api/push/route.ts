@@ -1,0 +1,6 @@
+import {actor} from '../../../server/auth';
+import {db,uid,now,sameOrigin} from '@/lib/store';
+import {z} from 'zod';
+export async function POST(r:Request){try{sameOrigin(r);const a=await actor(r);if(!a)return Response.json({error:'Connexion requise.'},{status:401});const s=z.object({endpoint:z.string().url().max(3000),keys:z.object({p256dh:z.string().regex(/^[A-Za-z0-9_-]+$/).max(120),auth:z.string().regex(/^[A-Za-z0-9_-]+$/).max(50)})}).parse(await r.json());const u=new URL(s.endpoint);if(u.protocol!=='https:'||!/(^|\.)(push\.services\.mozilla\.com|fcm\.googleapis\.com|web\.push\.apple\.com|notify\.windows\.com)$/.test(u.hostname))throw Error('Service push non pris en charge.');const d=db();await d.prepare('INSERT INTO subscriptions(id,endpoint,data,created,person_id) VALUES(?,?,?,?,?) ON CONFLICT(endpoint) DO UPDATE SET data=excluded.data,person_id=excluded.person_id').bind(uid(),s.endpoint,JSON.stringify(s),now(),a.person_id).run();return Response.json({ok:true});}catch{return Response.json({error:'Impossible d’activer les notifications.'},{status:400});}}
+
+export async function DELETE(r:Request){const a=await actor(r);if(!a)return new Response(null,{status:401});const b=await r.json();await db().prepare('DELETE FROM subscriptions WHERE endpoint=? AND person_id=?').bind(String(b.endpoint),a.person_id).run();return Response.json({ok:true});}

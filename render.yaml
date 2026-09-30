@@ -1,13 +1,23 @@
 services:
   - type: web
-    name: cap-investir
+    name: pari-long-terme
     runtime: node
     plan: free
-    buildCommand: npm ci --omit=dev
-    startCommand: npm start
+    buildCommand: corepack pnpm install --frozen-lockfile --prod=false && corepack pnpm build
+    startCommand: corepack pnpm start
     healthCheckPath: /healthz
     envVars:
       - key: NODE_VERSION
-        value: 24
+        value: "24"
+      - key: NODE_ENV
+        value: production
       - key: DATABASE_URL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: CRON_SECRET
+        generateValue: true
+      - key: INVITE_CODE
         sync: false

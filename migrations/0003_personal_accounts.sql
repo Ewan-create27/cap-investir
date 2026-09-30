@@ -1,0 +1,10 @@
+CREATE TABLE accounts(id text PRIMARY KEY, person_id text NOT NULL UNIQUE REFERENCES participants(id), username text NOT NULL UNIQUE, salt text NOT NULL, password_hash text NOT NULL);
+CREATE TABLE user_sessions(hash text PRIMARY KEY, account_id text NOT NULL REFERENCES accounts(id), expires bigint NOT NULL, fingerprint text NOT NULL);
+CREATE TABLE profile_claims(hash text PRIMARY KEY,person_id text NOT NULL REFERENCES participants(id),expires bigint NOT NULL);
+DELETE FROM _sessions;
+ALTER TABLE bets ADD COLUMN creator_id text REFERENCES participants(id);
+ALTER TABLE bets ADD COLUMN phase text NOT NULL DEFAULT 'locked';
+ALTER TABLE bets ADD COLUMN revision integer NOT NULL DEFAULT 0;
+CREATE TABLE proposals(id text PRIMARY KEY,bet_id text NOT NULL REFERENCES bets(id),revision integer NOT NULL,person_id text NOT NULL REFERENCES participants(id),stake text NOT NULL,created text NOT NULL,UNIQUE(bet_id,revision));
+CREATE TABLE acceptances(bet_id text NOT NULL REFERENCES bets(id),person_id text NOT NULL REFERENCES participants(id),revision integer NOT NULL,PRIMARY KEY(bet_id,person_id));
+ALTER TABLE subscriptions ADD COLUMN person_id text REFERENCES participants(id);

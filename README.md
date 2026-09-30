@@ -1,48 +1,66 @@
-# Cap autonome
+# Pari à Long Terme
 
-Cap fonctionne avec des comptes e-mail/mot de passe, un serveur Node.js et une base PostgreSQL (Neon) ou SQLite locale. Aucun compte ChatGPT, aucune API OpenAI ne sont nécessaires. Sur Render, Neon conserve les données ; en local, SQLite est disponible.
+Application privée de paris entre amis, React/TypeScript + Vite, serveur Node.js 24 et PostgreSQL/Neon. PWA, avatars photo, comptes personnels, paris ouverts, camps volontaires, négociation d’enjeux, rappels Web Push et historique.
 
-Les objectifs, relevés, budgets, préférences et progressions sont sauvegardés côté serveur et isolés par compte. Un compte peut posséder plusieurs espaces. La synchronisation conserve la protection des modifications simultanées. Le code vérifie les sessions côté serveur ; les en-têtes d’identité envoyés par un navigateur ne donnent aucun accès.
+**Dernière mise à jour : lire `INSTRUCTIONS-AFFICHAGE-MOBILE.md`.**
 
-## Render gratuit + Neon
+Camps définitifs : `INSTRUCTIONS-CAMPS-FIXES.md`.
 
-Suivre DEMARRAGE-RENDER.md pour publier cette version. Renseigner DATABASE_URL dans les secrets Render. L’adresse publique est détectée automatiquement depuis RENDER_EXTERNAL_URL ; APP_ORIGIN permet de la remplacer pour un domaine personnalisé. Les tables sont créées automatiquement dans Neon au démarrage, avec une migration versionnée et transactionnelle. Les sessions et limites de connexion résident également dans Neon. Le serveur refuse de démarrer sur Render sans DATABASE_URL.
+Récupération e-mail : `INSTRUCTIONS-RECUPERATION-EMAIL.md`.
 
-## Commencer sur son ordinateur
+Comptes et paris ouverts : `INSTRUCTIONS-COMPTES-ET-PARIS.md`.
 
-1. Installer Node.js 24 LTS.
-2. Décompresser le dossier Cap et ouvrir un terminal dans ce dossier.
-3. Exécuter `npm ci --omit=dev`, puis `npm start`.
-4. Ouvrir http://localhost:3000 et créer un compte Cap.
+## Installation
 
-Exécuter `npm ci --omit=dev` avant `npm start` pour installer le pilote PostgreSQL. `npm ci` inclut aussi les outils de développement et les tests PostgreSQL. `npm test` vérifie comptes, isolation, synchronisation, récupération et persistance après redémarrage.
+```
+corepack pnpm install --frozen-lockfile --prod=false
+```
 
-Ce lancement local n’est pas encore une publication accessible partout. Le serveur doit rester allumé. Pour un usage permanent depuis téléphone et ordinateur, voir DEPLOIEMENT.md.
+Copier `.env.example` vers `.env` localement. Fournir `DATABASE_URL`, `ADMIN_PASSWORD`, `INVITE_CODE`, `SESSION_SECRET` et `CRON_SECRET`. Les secrets de session/cron font au moins 32 caractères ; les deux codes administrateur/invitation font 12 à 256 caractères et doivent être différents. `APP_URL` indique l’origine publique HTTPS en production. Ne jamais committer `.env`.
 
-## Connexion et récupération
+```
+corepack pnpm build
+corepack pnpm start
+```
 
-Un mot de passe de 12 à 128 caractères est demandé. À l’inscription, un code de récupération secret est affiché et téléchargeable. Il permet de remplacer le mot de passe et est renouvelé après utilisation. Une récupération déconnecte tous les appareils. Conserver le nouveau code à chaque récupération.
+Le démarrage applique les migrations SQL une fois, sous transaction PostgreSQL. Aucune démo n’est créée. Les clés VAPID et photos résident en base, pour survivre aux redémarrages Render. Le backend nécessite PostgreSQL, pas un disque local persistant.
 
-Cette version n’envoie pas de messages et ne vérifie pas la possession de l’adresse e-mail : l’e-mail sert d’identifiant. Le lien « Mot de passe oublié » utilise le code de récupération, pas un e-mail. Sans mot de passe ni code, il n’existe pas de récupération automatique. Ajouter ultérieurement un service d’e-mail vérifié est possible, mais aucun service payant ou compte externe n’est imposé ici.
+## Architecture
 
-Les mots de passe sont dérivés avec scrypt et un sel aléatoire. Les sessions sont dans des cookies HttpOnly/SameSite, Secure en production ; seuls leurs condensats sont en base. Les codes de récupération sont également stockés sous forme de condensats. Les connexions sont limitées par adresse distante et par identifiant. Derrière un proxy, la limite par adresse est partagée entre visiteurs : les en-têtes de proxy non fiables sont volontairement ignorés. Ce choix convient à un petit lancement ; adapter un proxy de confiance et la limitation avant une diffusion importante.
+- `client.tsx` : connexion, création de compte, reprise des anciens personnages et récupération administrateur.
+- `app/page.tsx` : navigation responsive et gestion des paris/profils.
+- `app/negotiation.tsx` : participation, accords, contre-propositions et mot de passe.
+- `server/auth.ts`, `server/accounts.ts` : scrypt salé, sessions aléatoires hachées, cookies HttpOnly, invitations et reprise de profil par code à usage unique.
+- `app/api/data/route.ts` : règles métier et autorisations. Les changements sont sérialisés dans une transaction ; les camps sont définitifs dès la participation. Chaque nouvelle proposition ou nouvel arrivant demande un nouvel accord sur l’enjeu. Les refus bloquent le lancement.
+- `server/recovery.ts`, `server/email.ts`, `app/recovery.tsx` : vérification des adresses et récupération par codes temporaires via Resend HTTPS.
+- `migrations/` : schéma, nettoyage des exemples, comptes et négociations.
+- `server/runtime.ts` : PostgreSQL avec TLS vérifié vers Neon, migrations et stockage des avatars.
+- `app/api/cron/route.ts` : échéances persistantes, fuseaux, baux de traitement, tentatives et déduplication des notifications.
 
-## Récupérer ses données
+Le créateur est seul autorisé à gérer un nouveau pari. Chaque participant décide pour lui-même. Il faut les deux camps et un accord unanime pour lancer et figer un pari. Aucun paiement ni suppression définitive de pari.
 
-Depuis l’ancienne version hébergée : avatar → Exporter cet espace. Sur le Cap autonome : créer son compte → avatar → Importer un fichier Cap. Chaque import crée un nouvel espace et conserve les espaces existants. Répéter pour chaque ancien espace.
+Les anciennes données sont conservées ; les anciens paris sans créateur nécessitent le mot de passe administrateur pour leur gestion. Le groupe reste unique et privé ; pas de groupe public dans cette version. La récupération par e-mail utilise Resend : configurer `RESEND_API_KEY` et `EMAIL_FROM`, puis vérifier l’adresse depuis Profil.
 
-Si les données sont encore dans l’ancien stockage du navigateur : avatar → Récupérer les données de ce navigateur, puis exporter l’espace créé. Changer de domaine empêche le nouveau site de lire automatiquement le stockage de l’ancien : le fichier exporté assure le transfert.
+## Planification des rappels
 
-## Structure
+Conserver le workflow existant dans `.github/workflows/` et ses secrets, ou appeler périodiquement :
 
-- `public/` : toute l’interface, graphiques, budget, leçons et gestion des comptes.
-- `server/api.js` : API de données commune, contrôle de propriétaire et versions concurrentes.
-- `standalone/` : serveur autonome, authentification, SQLite, migrations et sauvegarde.
-- `Dockerfile`, `compose.yaml`, `Caddyfile` : mise en ligne sur un serveur avec HTTPS.
-- `tests/` : vérifications automatisées.
+```
+POST https://VOTRE-SERVICE.onrender.com/api/cron
+Authorization: Bearer VOTRE_CRON_SECRET
+```
 
-Les fichiers `server/worker.js`, `.openai/` et `scripts/build.mjs` présents dans le dépôt de développement servent uniquement à maintenir l’ancien hébergement pendant la migration. Ils ne sont pas requis pour le fonctionnement autonome et sont exclus du dossier autonome distribué. Ne pas confondre l’ancienne URL Sites avec le futur hébergement indépendant.
+Aucun timer navigateur ne remplace ce planificateur. Le rythme horaire peut être retardé par le planificateur ou le réveil du serveur ; la livraison ne garantit pas une minute exacte. Les notifications nécessitent HTTPS, permission et abonnement sur chaque appareil. Sur iOS, ouvrir l’application installée sur l’écran d’accueil. Seuls les participants abonnés reçoivent les rappels de leurs paris.
 
-Références techniques : [SQLite Node.js](https://nodejs.org/api/sqlite.html), [scrypt Node.js](https://nodejs.org/api/crypto.html#cryptoscryptpassword-salt-keylen-options-callback).
+## Vérification et sauvegarde
 
-Vérification PostgreSQL : le test postgres.test.mjs utilise un moteur PostgreSQL embarqué (PGlite) pour vérifier le schéma, les comptes, les sessions, les conflits et le redémarrage de l’application. Il ne remplace pas une vérification de connexion au projet Neon réel, qui nécessite DATABASE_URL.
+```
+corepack pnpm typecheck
+corepack pnpm build
+corepack pnpm test
+node tests/demo-cleanup.mjs
+node tests/recovery.mjs
+corepack pnpm backup
+```
+
+Les tests n’utilisent pas la vraie base Neon : ils démarrent un PostgreSQL embarqué temporaire. La sauvegarde nécessite `pg_dump` et utilise `DATABASE_URL` ; conserver le fichier obtenu dans un lieu privé.
