@@ -11,19 +11,19 @@
   "theme_color": "#397de8",
   "icons": [
     {
-      "src": "/cap-logo-red-192.png",
+      "src": "/cap-logo-centered-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/cap-logo-red-512.png",
+      "src": "/cap-logo-centered-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/cap-logo-red-maskable.png",
+      "src": "/cap-logo-centered-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
