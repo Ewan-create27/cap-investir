@@ -1,10 +1,32 @@
 {
- "id":"/", "name":"CAP", "short_name":"CAP", "lang":"fr",
- "description":"Tes objectifs, ton patrimoine et ton budget, un pas à la fois.",
- "start_url":"/", "scope":"/", "display":"standalone",
- "background_color":"#000000", "theme_color":"#397de8",
- "icons":[
-  {"src":"/cap-icon-white-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
-  {"src":"/cap-icon-white-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
- ]
+  "id": "/",
+  "name": "CAP",
+  "short_name": "CAP",
+  "lang": "fr",
+  "description": "Tes objectifs, ton patrimoine et ton budget, un pas à la fois.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#397de8",
+  "icons": [
+    {
+      "src": "/cap-logo-red-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/cap-logo-red-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/cap-logo-red-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }
